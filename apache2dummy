@@ -32,7 +32,7 @@ fi
 
 echo apache2placeholder
 echo $credential $baseurl
-wp --allow-root core install --path='/var/www/html'  --title='test blog' --admin_user='cityscope' --admin_password=$credential --admin_email='b.butchart@ed.ac.uk' --url=$baseurl
+wp --allow-root core install --path='/var/www/html'  --title='test blog' --admin_user='cityscope' --admin_password=$credential --admin_email='cityscope@ed.ac.uk' --url=$baseurl
 wp --allow-root plugin install wordpress-importer --activate
 wp --allow-root plugin install rest-api --activate
 wp --allow-root plugin install advanced-custom-fields --activate
