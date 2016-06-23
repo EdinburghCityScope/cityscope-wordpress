@@ -1,0 +1,45 @@
+#!/bin/bash
+
+while [[ $# > 1 ]]
+do
+key="$1"
+
+case $key in
+    -credential)
+    credential="$2"
+    shift # past argument
+    ;;
+    -baseurl)
+    baseurl="$2"
+    shift # past argument
+    ;;
+    *)
+    shift        # unknown option
+    ;;
+esac
+
+done
+
+if [ -z ${credential+x} ]; then
+  echo "-credential parameter must be set"
+  exit 1
+fi
+
+if [ -z ${baseurl+x} ]; then
+  echo "-baseurl parameter must be set"
+  exit 1
+fi
+
+echo apache2placeholder
+echo $credential $baseurl
+wp --allow-root core install --path='/var/www/html'  --title='test blog' --admin_user='cityscope' --admin_password=$credential --admin_email='b.butchart@ed.ac.uk' --url=$baseurl
+wp --allow-root plugin install wordpress-importer --activate
+wp --allow-root plugin install rest-api --activate
+wp --allow-root plugin install advanced-custom-fields --activate
+wp --allow-root plugin install wp-rest-api-v2-custom-fields --activate
+wp --allow-root plugin install osm --activate
+wp --allow-root plugin install wp-jquery-lightbox --activate
+wp --allow-root plugin install add-to-any --activate
+wp --allow-root theme install suffusion --activate
+wp --allow-root import /tmp/curiousedinburgh.wordpress.2016-06-21.xml --path='/var/www/html' --authors='create'
+apache2-foreground
