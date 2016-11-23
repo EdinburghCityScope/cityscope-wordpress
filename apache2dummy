@@ -52,11 +52,12 @@ wp --allow-root plugin install osm --activate
 wp --allow-root plugin install wp-jquery-lightbox --activate
 wp --allow-root plugin install add-to-any --activate
 
+cp -r /tmp/resources/suffusion /var/www/html/wordpress/wp-content/themes/suffusion
 wp --allow-root theme activate suffusion
 
-#sed -i -e "s@http://localhost:58765@https://${baseurl}@g" /tmp/benbutcharttourblog.wordpress.2016-09-02.xml
+#sed -i -e "s@http://localhost:58765@https://${baseurl}@g" /tmp/resources/benbutcharttourblog.wordpress.2016-09-02.xml
 
-wp --allow-root import /tmp/benbutcharttourblog.wordpress.2016-09-02.xml --path='/var/www/html' --authors='create'
+wp --allow-root import /tmp/resources/benbutcharttourblog.wordpress.2016-09-02.xml --path='/var/www/html/wordpress' --authors='create'
 wp --allow-root option update blogname "$username Tour Blog"
 wp --allow-root option update blogdescription "A Guided Tour Blog Powered By Edinburgh Cityscope"
 wp --allow-root post delete 1 --force
@@ -85,14 +86,14 @@ wp --allow-root widget add a2a_follow_widget  sidebar-1  --title="Follow" --face
 wp --allow-root widget add text  sidebar-1  --title="link to app" --text="<a href=\"curious-edinburgh://$baseurl/wordpress/$username?tour='My Tour'%26protocol='secure' \">App Launch URL</a>"
 wp --allow-root widget add text  sidebar-1  --title="mail app launch URL" --text="<a href=\"mailto:$username@ed.ac.uk?subject=cityscope tour launch url&body=curious-edinburgh%3A%2F%2F$baseurl/wordpress/$username?tour='My Tour'%26protocol='secure' \">Send launch URL via email</a>"
 
-wp --allow-root media import /tmp/RCS-museum.jpg --post_id=292 --title="Surgeons' Hall Museums" --featured_image
-wp --allow-root media import /tmp/robert-knox-2.jpg --post_id=292 --title="Robert Knox"
-wp --allow-root media import /tmp/surgeons-hall.jpg --post_id=292 --title="Surgeons' Hall"
-wp --allow-root media import /tmp/old-college.jpg --post_id=287 --title="Old College" --featured_image
-wp --allow-root media import /tmp/Apple_App_Store_Logo1.gif --post_id=655
-wp --allow-root media import /tmp/PhoneSplash.png --post_id=655
-wp --allow-root media import /tmp/PhoneMap.png --post_id=655
-wp --allow-root media import /tmp/PhoneList.png --post_id=655
+wp --allow-root media import /tmp/resources/RCS-museum.jpg --post_id=292 --title="Surgeons' Hall Museums" --featured_image
+wp --allow-root media import /tmp/resources/robert-knox-2.jpg --post_id=292 --title="Robert Knox"
+wp --allow-root media import /tmp/resources/surgeons-hall.jpg --post_id=292 --title="Surgeons' Hall"
+wp --allow-root media import /tmp/resources/old-college.jpg --post_id=287 --title="Old College" --featured_image
+wp --allow-root media import /tmp/resources/Apple_App_Store_Logo1.gif --post_id=655
+wp --allow-root media import /tmp/resources/PhoneSplash.png --post_id=655
+wp --allow-root media import /tmp/resources/PhoneMap.png --post_id=655
+wp --allow-root media import /tmp/resources/PhoneList.png --post_id=655
 
 #wp --allow-root option update  page_for_posts 565
 wp --allow-root option update show_on_front	page
