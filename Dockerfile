@@ -6,7 +6,10 @@ RUN chmod +x /tmp/wp-cli.phar
 RUN mv /tmp/wp-cli.phar /usr/local/bin/wp
 
 ADD ./resources /tmp/resources
-RUN chmod +x /tmp/apache2dummy
-RUN mv /tmp/apache2dummy /usr/local/bin/apache2dummy
-WORKDIR /var/www/html
-ENTRYPOINT ["/entrypoint.sh" , "apache2dummy"]
+
+ADD ./cityscope-entrypoint.sh /cityscope-entrypoint.sh
+ADD ./apache2dummy /usr/local/bin/apache2dummy
+
+RUN sed -i -e "s#/var/www/html#/var/www/html/wordpress#g" /etc/apache2/sites-available/000-default.conf
+
+ENTRYPOINT [ "/cityscope-entrypoint.sh", "/entrypoint.sh", "apache2dummy" ]
