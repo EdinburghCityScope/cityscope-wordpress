@@ -4,6 +4,14 @@ This extends [the official wordpress image in Dockerhub](https://hub.docker.com/
 The extension automtically installs wordpress using the wp-cli interface with username and credentials passed in from the Cityscope workbench
 A set of plugins are also installed to make the auto generated blog work with the [Curious Edinburgh](curiousedinburgh.org) app. 
 
+# Entrypoint scripts
+
+There are three scripts here that are ran whenever a container is started:
+
+* /entrypoint.sh comes from the parent Docker image, and it essentially installs Wordpress and does some basic configuration, before running Apache
+* /cityscopt-entrypoint.sh does some pre-preparation that has to be done *before* Wordpress is installed
+* apache2dummy does configuration of the template application, and has to be done *after* Wordpress is installed. The odd name, and the fact it's on the PATH, is because /entrypoint.sh checks the name of the scripts passed to it
+
 # Building / running
 
 Normally, this image is built automatically and can be found in [Dockerhub](https://hub.docker.com/r/cityscope/wordpress/).
