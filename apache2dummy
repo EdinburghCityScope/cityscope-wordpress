@@ -57,7 +57,7 @@ if [ ! -d /var/www/html/wordpress/wp-content/themes/suffusion ]; then
     cp -r /tmp/resources/suffusion /var/www/html/wordpress/wp-content/themes/suffusion
     wp --allow-root theme activate suffusion
 
-    #sed -i -e "s@http://localhost:58765@https://${baseurl}@g" /tmp/resources/benbutcharttourblog.wordpress.2016-09-02.xml
+    sed -i -e "s@http://localhost:58765@https://${baseurl}@g" /tmp/resources/benbutcharttourblog.wordpress.2016-09-02.xml
 
     wp --allow-root import /tmp/resources/benbutcharttourblog.wordpress.2016-09-02.xml --path='/var/www/html/wordpress' --authors='create'
     wp --allow-root option update blogname "$username Tour Blog"
