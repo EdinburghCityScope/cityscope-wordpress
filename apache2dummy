@@ -114,12 +114,10 @@ if [ ! -d /var/www/html/wordpress/wp-content/themes/suffusion ]; then
 
     #apt-get update
 
-    #  fix issue with wp-admin links stripping context
-    # TODO uncomment below
     echo "\$_SERVER['HTTP_HOST'] = \$_SERVER['HTTP_X_FORWARDED_HOST'];" >> wp-config.php
-    echo "\$_SERVER['REQUEST_URI'] = 'wordpress/$username' . \$_SERVER['REQUEST_URI']; " >> wp-config.php
-    echo "\$_SERVER['SCRIPT_NAME'] = 'wordpress/$username' . \$_SERVER['SCRIPT_NAME']; " >> wp-config.php
-    echo "\$_SERVER['PHP_SELF'] = 'wordpress/$username' . \$_SERVER['PHP_SELF']; " >> wp-config.php
+    echo "\$_SERVER['REQUEST_URI'] = '/wordpress/$username' . \$_SERVER['REQUEST_URI']; " >> wp-config.php
+    echo "\$_SERVER['SCRIPT_NAME'] = '/wordpress/$username' . \$_SERVER['SCRIPT_NAME']; " >> wp-config.php
+    echo "\$_SERVER['PHP_SELF'] = '/wordpress/$username' . \$_SERVER['PHP_SELF']; " >> wp-config.php
     echo "\$_SERVER['REMOTE_ADDR'] = \$_SERVER['HTTP_X_FORWARDED_FOR']; " >> wp-config.php
     echo "Updated wp-config.php"
     tail wp-config.php
