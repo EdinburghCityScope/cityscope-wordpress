@@ -121,6 +121,9 @@ if [ ! -d /var/www/html/wordpress/wp-content/themes/suffusion ]; then
     echo "\$_SERVER['REMOTE_ADDR'] = \$_SERVER['HTTP_X_FORWARDED_FOR']; " >> wp-config.php
     echo "Updated wp-config.php"
     tail wp-config.php
+else
+    #If the container is restarting/recreated update the user's credential to ensure it's kept in sync with workbench
+    wp --allow-root user update $username --user_pass=$credential
 fi
 
 apache2-foreground
