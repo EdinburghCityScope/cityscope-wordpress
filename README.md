@@ -12,6 +12,12 @@ There are three scripts here that are ran whenever a container is started:
 * /cityscope-entrypoint.sh does some pre-preparation that has to be done *before* Wordpress is installed
 * apache2dummy does configuration of the template application, and has to be done *after* Wordpress is installed. The odd name, and the fact it's on the PATH, is because docker-entrypoint.sh checks the name of the scripts passed to it
 
+# Tour-app protocol
+
+We add a link in the sidebar to start the tour-app. This link starts with a custom protocol that the phone interprets and sends to the correct app, e.g cityscope-tour://jupyter.edina.ac.uk/username/... By default, Wordpress scans links when they are added to make sure they come from a whitelist of allowed protocols (http, https etc.). To override this, we've had to add a filter adding 'cityscope-tour' to the list of allowed protocols. This is placed inside the theme we are using, i.e. `resources/suffusion/functions.php`, so if we ever change either the protocol we want to use or the theme, we need to make sure this is updated.
+
+Oddly enough, this link-scanning behavious only seems to happen when using the `wp widget add/update` commands, not if you actually add the link through the Wordpress interface.
+
 # Building / running
 
 Normally, this image is built automatically and can be found in [Dockerhub](https://hub.docker.com/r/cityscope/wordpress/).

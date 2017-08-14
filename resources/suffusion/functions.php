@@ -1340,3 +1340,10 @@ function suffusion_get_horizontal_components($include = array(), $exclude = arra
 	remove_filter('template_redirect', 'redirect_canonical');
 	return $base;
 }
+
+function cityscope_allow_tour_protocol( $protocols ) {
+        $protocols[] = 'cityscope-tour';
+        return $protocols;
+}
+add_filter( 'kses_allowed_protocols', 'cityscope_allow_tour_protocol' );
+
