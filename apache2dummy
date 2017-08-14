@@ -44,6 +44,9 @@ echo apache2dummy
 echo $credential $baseurl $username
 
 if [ ! -d /var/www/html/wordpress/wp-content/themes/suffusion ]; then
+    protocol="https"
+    #protocol="http"
+
     wp --allow-root core install --path='/var/www/html/wordpress'  --title='test blog' --admin_user=$username --admin_password=$credential --admin_email='cityscope@ed.ac.uk' --url=$baseurl
 
     wp --allow-root plugin install wordpress-importer --activate
@@ -57,19 +60,17 @@ if [ ! -d /var/www/html/wordpress/wp-content/themes/suffusion ]; then
     cp -r /tmp/resources/suffusion /var/www/html/wordpress/wp-content/themes/suffusion
     wp --allow-root theme activate suffusion
 
-    sed -i -e "s@http://localhost:58765@https://${baseurl}@g" /tmp/resources/benbutcharttourblog.wordpress.2016-09-02.xml
+    sed -i -e "s@BASEURL@${protocol}://${baseurl}@g" /tmp/resources/sampletourblog.wordpress.xml
 
-    wp --allow-root import /tmp/resources/benbutcharttourblog.wordpress.2016-09-02.xml --path='/var/www/html/wordpress' --authors='create'
+    wp --allow-root import /tmp/resources/sampletourblog.wordpress.xml --path='/var/www/html/wordpress' --authors='create'
     wp --allow-root option update blogname "$username Tour Blog"
     wp --allow-root option update blogdescription "A Guided Tour Blog Powered By Edinburgh Cityscope"
     wp --allow-root post delete 1 --force
     wp --allow-root option update permalink_structure "/%year%/%monthnum%/%day%/%postname%/"
 
     #convert base url to https
-    wp --allow-root option update siteurl https://$baseurl
-    wp --allow-root option update home https://$baseurl
-    #wp --allow-root option update siteurl http://$baseurl
-    #wp --allow-root option update home http://$baseurl
+    wp --allow-root option update siteurl $protocol://$baseurl
+    wp --allow-root option update home $protocol://$baseurl
 
     #TODO automate import of suffiosion settings
 
