@@ -86,8 +86,9 @@ if [ ! -d /var/www/html/wordpress/wp-content/themes/suffusion ]; then
     wp --allow-root widget add text  sidebar-1  --title="map" --text='[osm_map_v3 map_center="55.949, -3.195" zoom="12" width="100%" height="450" tagged_type="post" marker_name="mic_blue_pinother_2.png”]'
     wp --allow-root widget add a2a_follow_widget  sidebar-1  --title="Follow" --facebook_id="$username" --twitter_id="$username"
 
-    wp --allow-root widget add text  sidebar-1  --title="link to app" --text="<a href=\"cityscope-tour://$baseurl/wordpress/$username?tour='My Tour'%26protocol='secure' \">App Launch URL</a>"
-    wp --allow-root widget add text  sidebar-1  --title="mail app launch URL" --text="<a href=\"mailto:$username@ed.ac.uk?subject=cityscope tour launch url&body=cityscope-tour%3A%2F%2F$baseurl/wordpress/$username?tour='My Tour'%26protocol='secure' \">Send launch URL via email</a>"
+    tour=$(wp --allow-root term get category default_tour --by=slug --field=term_id)
+    wp --allow-root widget add text  sidebar-1  --title="link to app" --text="<a href=\"cityscope-tour://$baseurl?tour=$tour%26protocol=secure \">App Launch URL</a>"
+    wp --allow-root widget add text  sidebar-1  --title="mail app launch URL" --text="<a href=\"mailto:$username@ed.ac.uk?subject=$username Tour Blog launch url&body=cityscope-tour%3A%2F%2F$baseurl?tour=$tour%26protocol=secure \">Send launch URL via email</a>"
 
     wp --allow-root media import /tmp/resources/RCS-museum.jpg --post_id=292 --title="Surgeons' Hall Museums" --featured_image
     wp --allow-root media import /tmp/resources/robert-knox-2.jpg --post_id=292 --title="Robert Knox"
