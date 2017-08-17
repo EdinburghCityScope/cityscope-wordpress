@@ -8,9 +8,9 @@ RUN groupmod -g 1000 www-data
 RUN chown -Rhc --from=33 1000 /usr /var
 RUN chown -Rhc --from=:33 :1000 /usr /var
 
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-RUN chmod +x /tmp/wp-cli.phar
-RUN mv /tmp/wp-cli.phar /usr/local/bin/wp
+RUN curl -L -O https://github.com/wp-cli/wp-cli/releases/download/v1.3.0/wp-cli-1.3.0.phar
+RUN chmod +x /tmp/wp-cli-1.3.0.phar
+RUN mv /tmp/wp-cli-1.3.0.phar /usr/local/bin/wp
 
 ADD ./resources /tmp/resources
 
